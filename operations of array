@@ -1,0 +1,76 @@
+#include <stdio.h>
+
+int main() {
+    int arr[100];   // fixed size array
+    int n = 0;      // current number of elements
+    int choice, pos, val;
+
+    while (1) {
+        printf("\n--- Array Operations ---\n");
+        printf("1. Display\n");
+        printf("2. Insert\n");
+        printf("3. Delete\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: // Display
+                if (n == 0) {
+                    printf("Array is empty.\n");
+                } else {
+                    printf("Array elements: ");
+                    for (int i = 0; i < n; i++) {
+                        printf("%d ", arr[i]);
+                    }
+                    printf("\n");
+                }
+                break;
+
+            case 2: // Insert
+                if (n >= 100) {
+                    printf("Array is full. Cannot insert.\n");
+                } else {
+                    printf("Enter position (0 to %d): ", n);
+                    scanf("%d", &pos);
+                    if (pos < 0 || pos > n) {
+                        printf("Invalid position.\n");
+                    } else {
+                        printf("Enter value: ");
+                        scanf("%d", &val);
+                        for (int i = n; i > pos; i--) {
+                            arr[i] = arr[i - 1];
+                        }
+                        arr[pos] = val;
+                        n++;
+                        printf("Inserted %d at position %d.\n", val, pos);
+                    }
+                }
+                break;
+
+            case 3: // Delete
+                if (n == 0) {
+                    printf("Array is empty. Cannot delete.\n");
+                } else {
+                    printf("Enter position (0 to %d): ", n - 1);
+                    scanf("%d", &pos);
+                    if (pos < 0 || pos >= n) {
+                        printf("Invalid position.\n");
+                    } else {
+                        printf("Deleted element %d from position %d.\n", arr[pos], pos);
+                        for (int i = pos; i < n - 1; i++) {
+                            arr[i] = arr[i + 1];
+                        }
+                        n--;
+                    }
+                }
+                break;
+
+            case 4: // Exit
+                return 0;
+
+            default:
+                printf("Invalid choice.\n");
+        }
+    }
+}

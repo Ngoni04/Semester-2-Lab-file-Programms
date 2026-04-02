@@ -1,0 +1,91 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Node structure
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Function to create a list
+struct Node* createList(int n) {
+    struct Node *head = NULL, *temp, *newNode;
+    int value;
+
+    for(int i = 0; i < n; i++) {
+        printf("Enter value: ");
+        scanf("%d", &value);
+
+        newNode = (struct Node*)malloc(sizeof(struct Node));
+        newNode->data = value;
+        newNode->next = NULL;
+
+        if(head == NULL) {
+            head = newNode;
+        } else {
+            temp = head;
+            while(temp->next != NULL)
+                temp = temp->next;
+            temp->next = newNode;
+        }
+    }
+    return head;
+}
+
+// Function to concatenate
+struct Node* concatenate(struct Node* list1, struct Node* list2) {
+    if(list1 == NULL)
+        return list2;
+
+    if(list2 == NULL)
+        return list1;
+
+    struct Node* temp = list1;
+
+    while(temp->next != NULL) {
+        temp = temp->next;
+    }
+
+    temp->next = list2;
+
+    return list1;
+}
+
+// Display list
+void display(struct Node* head) {
+    struct Node* temp = head;
+
+    while(temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+// Main function
+int main() {
+    struct Node *list1, *list2, *result;
+    int n1, n2;
+
+    printf("Enter number of nodes for List 1: ");
+    scanf("%d", &n1);
+    list1 = createList(n1);
+
+    printf("Enter number of nodes for List 2: ");
+    scanf("%d", &n2);
+    list2 = createList(n2);
+
+    printf("\nList 1: ");
+    display(list1);
+
+    printf("List 2: ");
+    display(list2);
+
+    // Concatenate
+    result = concatenate(list1, list2);
+
+    printf("\nConcatenated List: ");
+    display(result);
+
+    return 0;
+}
